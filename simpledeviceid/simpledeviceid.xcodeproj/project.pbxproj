@@ -11,6 +11,7 @@
 		6A6D29DF27AE9E0C00270472 /* SimpleDeviceId.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A6D29D427AE9E0C00270472 /* SimpleDeviceId.framework */; };
 		6A6D29E427AE9E0C00270472 /* SimpleDeviceIdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D29E327AE9E0C00270472 /* SimpleDeviceIdTests.swift */; };
 		6A6D29E527AE9E0C00270472 /* SimpleDeviceId.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6D29D727AE9E0C00270472 /* SimpleDeviceId.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A6D29EF27AE9E4E00270472 /* SimpleDeviceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6D29EE27AE9E4E00270472 /* SimpleDeviceId.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		6A6D29D827AE9E0C00270472 /* SimpleDeviceId.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = SimpleDeviceId.docc; sourceTree = "<group>"; };
 		6A6D29DE27AE9E0C00270472 /* SimpleDeviceIdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleDeviceIdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A6D29E327AE9E0C00270472 /* SimpleDeviceIdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDeviceIdTests.swift; sourceTree = "<group>"; };
+		6A6D29EE27AE9E4E00270472 /* SimpleDeviceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDeviceId.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				6A6D29D727AE9E0C00270472 /* SimpleDeviceId.h */,
 				6A6D29D827AE9E0C00270472 /* SimpleDeviceId.docc */,
+				6A6D29EE27AE9E4E00270472 /* SimpleDeviceId.swift */,
 			);
 			path = SimpleDeviceId;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A6D29EF27AE9E4E00270472 /* SimpleDeviceId.swift in Sources */,
 				6A6D29D927AE9E0C00270472 /* SimpleDeviceId.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +402,7 @@
 		6A6D29EC27AE9E0C00270472 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K78JGMAWVU;
@@ -414,6 +419,7 @@
 		6A6D29ED27AE9E0C00270472 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K78JGMAWVU;
