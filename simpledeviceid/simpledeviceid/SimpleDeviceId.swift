@@ -7,10 +7,19 @@ import UIKit
 
 public class SimpleDeviceId {
     private let device = UIDevice.current
+    private let keychain = KeychainDeviceIdStorage()
     
     /// Retrieves device identifier. See discussion for caveats
     public func getDeviceId() -> UUID? {
-        let vendorId = device.identifierForVendor
-        return vendorId
+        if let deviceId = keychain.retrieveDeviceId() {
+            return deviceId
+        } else {
+            guard let vendorId = device.identifierForVendor else {
+                return nil
+            }
+            keychain.storeDeviceId(vendorId)
+            return vendorId
+        }
     }
 }
+
