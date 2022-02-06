@@ -13,6 +13,18 @@ Simple Device Identifier retrieval framework
 
 See the Example folder for a sample project/usage.
 
+# Adding SimpleDeviceId as a Dependency Manually (with Xcode)
+
+1. Clone this repository
+
+2. Convert your project into a workspace (if it wasn't a workspace already) in `File > Save as Workspace`
+
+3. Add the SimpleDeviceId.xcodeproj file to the top of the workspace hierarchy (on the same level as the original .xcodeproj reference)
+
+4. Add SimpleDeviceId to the `General > Framework, Libraries and Embedded Content` (`General > Frameworks and Libraries` in case of integrating with a Framework) section in the original project. It should also automatically show up in the `Build Phases` section under `Link Binary With Libraries`.
+
+5. Build and run
+
 # Identifier Stability and Caveats
 ## What is Identifier Stability?
 Identifier stability refers to the ability of the `getDeviceId()` method to return the same value between calls for the same combination of device + application/vendor.
@@ -20,7 +32,9 @@ Identifier stability refers to the ability of the `getDeviceId()` method to retu
 ## Identifier Stability in SimpleDeviceId
 SimpleDeviceId makes the best effort to keep the identifier stable even between application reinstalls. The core functionality depends on the `identifierForVendor` API that obtains `UUID` for the current device + vendor (appId prefix) combination [[official docs](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor)]. Since the `identifierForVendor` output changes between application reinstalls (to be precise only when there are no other apps from the same vendor left on the device), the framework saves the latest value in the Keychain. The Keychain data don't get deleted along with the app which enables the framework to improve the identifier stability (i. e. the ID is loaded from the Keychain if possible).
 
-There is unfortunately *no guarantee* that the Keychain behaviour remains the same between iOS versions (it already broke once for 10.3 iOS beta version [[link](https://developer.apple.com/forums/thread/36442?answerId=281900022#281900022)]) so we recommend to use the framework with caution for use cases where identifier stability determines efficacy.
+There is unfortunately *no guarantee* that the Keychain behaviour remains the same between iOS versions (it already broke once for iOS 10.3 beta [[link](https://developer.apple.com/forums/thread/36442?answerId=281900022#281900022)]) so we recommend using the framework with caution for use cases where identifier stability determines efficacy.
+
+The Keychain trick also does not work across all applications of the same vendor. It would require the *Keychain Groups* entitlement and a shared keychain group identifier which is out of scope of the current implementation.
 
 ## Other Caveats
 Apple documentation mentions that the underlying *UIDevice* API might return `nil` in [some scenarios](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor), especially when the device is not ready or hasn't been previously unlocked after a restart. If the *UIDevice* API fails to return a valid value and a fallback value isn't found in the Keychain, a specific error (<specific error class/enum name>) is thrown to indicate it.
