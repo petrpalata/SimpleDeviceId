@@ -6,7 +6,9 @@ Simple Device Identifier retrieval framework
     let deviceIdRetrieval = SimpleDeviceId()
     do {
         let deviceId = deviceIdRetrieval.getDeviceId() // always returns value or throws
-    } catch e {
+
+        // do something awesome with deviceId
+    } catch {
         // handle errors (see caveats below)
     }
 ```
@@ -37,7 +39,7 @@ There is unfortunately *no guarantee* that the Keychain behaviour remains the sa
 The Keychain trick also does not work across all applications of the same vendor. It would require the *Keychain Groups* entitlement and a shared keychain group identifier which is out of scope of the current implementation.
 
 ## Other Caveats
-Apple documentation mentions that the underlying *UIDevice* API might return `nil` in [some scenarios](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor), especially when the device is not ready or hasn't been previously unlocked after a restart. If the *UIDevice* API fails to return a valid value and a fallback value isn't found in the Keychain, a specific error (<specific error class/enum name>) is thrown to indicate it.
+Apple documentation mentions that the underlying *UIDevice* API might return `nil` in [some scenarios](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor), especially when the device is not ready or hasn't been previously unlocked after a restart. If the *UIDevice* API fails to return a valid value and a fallback value isn't found in the Keychain, a specific error (`SimpleDeviceIdError.deviceNotReady`) is thrown to indicate it.
 
 ## Possible Replacements
 

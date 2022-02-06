@@ -37,6 +37,11 @@
                BlueprintName = "SimpleDeviceIdTests"
                ReferencedContainer = "container:SimpleDeviceId.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SimpleDeviceIdTests/testGetDeviceIdThrowsWhenIdNotReady()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

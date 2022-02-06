@@ -48,11 +48,12 @@ class KeychainDeviceIdStorage: DeviceIdStorage {
         var value: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &value)
         
-        guard
+        if status == errSecSuccess,
             let data = value as? Data,
-            let uuidString = String(data: data, encoding: .utf8) else {
-                return nil
-            }
-        return UUID(uuidString: uuidString)
+            let uuidString = String(data: data, encoding: .utf8) {
+            return UUID(uuidString: uuidString)
+        }
+        
+        return nil
     }
 }

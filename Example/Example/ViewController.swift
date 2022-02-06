@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     private let deviceIdRetriever = SimpleDeviceId()
 
     @IBAction func didPressGetDeviceIdButton() {
-        if let deviceId = deviceIdRetriever.getDeviceId() {
+        if let deviceId = try? deviceIdRetriever.getDeviceId() {
             deviceIdLabel.text = deviceId.uuidString
         } else {
             deviceIdLabel.text = "Failed to retrieve device ID"
