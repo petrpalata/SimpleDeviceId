@@ -9,14 +9,16 @@ import UIKit
 import SimpleDeviceId
 
 class ViewController: UIViewController {
+    @IBOutlet var deviceIdLabel: UILabel!
+    
+    private let deviceIdRetriever = SimpleDeviceId()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let simpleDeviceId = SimpleDeviceId()
-        NSLog("\(simpleDeviceId.getDeviceId())")
+    @IBAction func didPressGetDeviceIdButton() {
+        if let deviceId = deviceIdRetriever.getDeviceId() {
+            deviceIdLabel.text = deviceId.uuidString
+        } else {
+            deviceIdLabel.text = "Failed to retrieve device ID"
+        }
     }
-
-
 }
 
