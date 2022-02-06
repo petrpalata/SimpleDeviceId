@@ -15,19 +15,23 @@ class KeychainDeviceIdStorage: DeviceIdStorage {
     private let storageKey = "deviceId"
     
     func storeDeviceId(_ deviceId: UUID) {
+        guard let deviceIdData = deviceId.uuidString.data(using: .utf8) else {
+            return
+        }
+                
         let queryDictionary: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: storageKey,
             kSecAttrService as String: keychainService,
-            kSecValueData as String: deviceId.uuidString,
+            kSecValueData as String: deviceIdData
         ]
         
         let addQuery = queryDictionary as CFDictionary
         
-        let status = SecItemAdd(addQuery, nil)
+        var status = SecItemAdd(addQuery, nil)
         if status == errSecDuplicateItem {
-            let updateQuery = [kSecValueData: deviceId] as CFDictionary
-            SecItemUpdate(addQuery, updateQuery)
+            let updateQuery = [kSecValueData: deviceIdData] as CFDictionary
+            status = SecItemUpdate(addQuery, updateQuery)
         } else if status == errSecMissingEntitlement {
             NSLog("Missing keychain entitlement. Failed to save deviceId")
         }
@@ -38,13 +42,17 @@ class KeychainDeviceIdStorage: DeviceIdStorage {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: storageKey,
             kSecAttrService as String: keychainService,
+            kSecReturnData as String: true as CFBoolean
         ]
         
         var value: AnyObject?
-        SecItemCopyMatching(query as CFDictionary, &value)
-        guard let uuidString = value as? String else {
-            return nil
-        }
+        let status = SecItemCopyMatching(query as CFDictionary, &value)
+        
+        guard
+            let data = value as? Data,
+            let uuidString = String(data: data, encoding: .utf8) else {
+                return nil
+            }
         return UUID(uuidString: uuidString)
     }
 }
