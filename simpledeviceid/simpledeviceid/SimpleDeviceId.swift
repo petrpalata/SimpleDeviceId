@@ -9,6 +9,8 @@ public class SimpleDeviceId {
     private let device = UIDevice.current
     private let keychain = KeychainDeviceIdStorage()
     
+    public init() {}
+    
     /// Retrieves device identifier. See discussion for caveats
     public func getDeviceId() -> UUID? {
         if let deviceId = keychain.retrieveDeviceId() {
